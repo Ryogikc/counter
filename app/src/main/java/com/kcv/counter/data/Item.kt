@@ -1,4 +1,7 @@
 package com.kcv.counter.data
 
-class Item {
-}
+data class Item(
+    val id: String,
+    val title: String,
+    val count: Int,
+) 
