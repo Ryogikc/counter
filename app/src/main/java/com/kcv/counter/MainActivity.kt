@@ -67,12 +67,7 @@ private fun CounterApp(
                     itemCount = itemViewModel.itemCounter.toString(),
                     itemNameChanged = { itemViewModel.updateItemName(it) },
                     itemCountChanged = { itemViewModel.updateCounterName(it) },
-                    onAddItemClick = {
-                        coroutineScope.launch {
-                            itemViewModel.newItem(it.title, it.count)
-                        }
-                    },
-                )
+                    )
 
                 ItemCounterColumn(
                     itemList = itemCounterList,

@@ -12,14 +12,15 @@ import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.kcv.counter.R
-import com.kcv.counter.data.local.Item
-import com.kcv.counter.ui.theme.CounterTheme
+import com.kcv.counter.ui.vm.ItemViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun CreateCounterRow(
@@ -27,9 +28,10 @@ fun CreateCounterRow(
     itemCount: String,
     itemNameChanged: (String) -> Unit,
     itemCountChanged: (String) -> Unit,
-    onAddItemClick: (Item) -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: ItemViewModel = hiltViewModel()
 ) {
+    val coroutineScope = rememberCoroutineScope()
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -61,7 +63,11 @@ fun CreateCounterRow(
             textStyle = MaterialTheme.typography.bodyLarge,
         )
         OutlinedButton(
-            onClick = { onAddItemClick },
+            onClick = {
+                coroutineScope.launch {
+                    viewModel.newItem(itemName, itemCount.toInt())
+                }
+            },
             border = BorderStroke(1.dp, Color.Gray),
             shape = RoundedCornerShape(50),
             modifier = Modifier
@@ -71,18 +77,5 @@ fun CreateCounterRow(
         ) {
             Text(stringResource(R.string.add_item))
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CreateCounterRowPreview() {
-    CounterTheme {
-        CreateCounterRow(
-            itemName = "Ice cream",
-            itemCount = "2",
-            itemNameChanged = { },
-            itemCountChanged = { },
-            onAddItemClick = { })
     }
 }
