@@ -18,7 +18,7 @@ interface ItemDao {
     @Query("DELETE FROM item")
     suspend fun deleteAll()
 
-    @Query("SELECT SUM(count) FROM item")
+    @Query("SELECT SUM(count) AS value FROM item")
     fun getSumOfCounters(): Flow<Int>
 
     @Query("DELETE FROM item WHERE id = :id")

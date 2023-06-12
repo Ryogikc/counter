@@ -61,7 +61,7 @@ private fun CounterApp(
         content = { padding ->
             Column(
                 modifier = Modifier
-                    .padding(vertical = 8.dp)
+                    .padding(padding)
             ) {
                 CreateCounterRow(
                     itemName = itemViewModel.itemName,
@@ -73,7 +73,7 @@ private fun CounterApp(
                             itemViewModel.newItem(it.title, it.count)
                         }
                     },
-                    modifier = Modifier.padding(padding)
+
                 )
 
                 ItemCounterColumn(
