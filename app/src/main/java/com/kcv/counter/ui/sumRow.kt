@@ -22,14 +22,14 @@ import com.kcv.counter.ui.theme.CounterTheme
 
 @Composable
 fun sumRow(
-    itemCount: () -> Unit,
+    itemCount: Int,
     onDeleteAllItems: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 8.dp, top = 16.dp, end = 8.dp, bottom = 16.dp),
+            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 8.dp),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         Text(text = stringResource(R.string.sum_counters),
@@ -62,7 +62,7 @@ fun sumRow(
 fun sumRowPreview() {
     CounterTheme {
         sumRow(
-           itemCount = {},
+           itemCount = 80,
             onDeleteAllItems = { }
         )
     }

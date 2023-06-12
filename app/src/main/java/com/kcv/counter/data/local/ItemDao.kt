@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
+import retrofit2.http.DELETE
 
 @Dao
 interface ItemDao {
@@ -18,7 +19,7 @@ interface ItemDao {
     suspend fun deleteAll()
 
     @Query("SELECT SUM(count) FROM item")
-    suspend fun getSumOfCounters(): Int
+    fun getSumOfCounters(): Flow<Int>
 
     @Query("DELETE FROM item WHERE id = :id")
     suspend fun deleteItemById(id: String)

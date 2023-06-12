@@ -18,13 +18,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.kcv.counter.ui.theme.CounterTheme
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.kcv.counter.ui.ItemCounterColumn
 import com.kcv.counter.ui.CreateCounterRow
+import com.kcv.counter.ui.ItemCounterColumn
 import com.kcv.counter.ui.sumRow
+import com.kcv.counter.ui.theme.CounterTheme
 import com.kcv.counter.ui.vm.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
@@ -51,18 +51,21 @@ class MainActivity : ComponentActivity() {
 private fun CounterApp(
     itemViewModel: ItemViewModel = hiltViewModel(),
 ) {
-    val itemUiState by itemViewModel.uiState.collectAsState()
+    //val itemUiState by itemViewModel.uiState.collectAsState()
     val itemCounterList by itemViewModel.itemCounterList.collectAsState(initial = emptyList())
+    val getSumOfCounters by itemViewModel.getSumOfCounters.collectAsState(initial = 0)
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = { TopBar() },
         content = { padding ->
-
-            Column() {
+            Column(
+                modifier = Modifier
+                    .padding(vertical = 8.dp)
+            ) {
                 CreateCounterRow(
-                    itemName = itemUiState.title,
-                    itemCount = itemUiState.counter,
+                    itemName = itemViewModel.itemName,
+                    itemCount = itemViewModel.itemCounter.toString(),
                     itemNameChanged = { itemViewModel.updateItemName(it) },
                     itemCountChanged = { itemViewModel.updateCounterName(it) },
                     onAddItemClick = {
@@ -77,38 +80,29 @@ private fun CounterApp(
                     itemList = itemCounterList,
                     onMinusClick = { /*TODO*/ },
                     onPlusClick = { /*TODO*/ },
-                    onDeleteItemClick = {}
+                    onDeleteItemClick = {
+                        coroutineScope.launch {
+                            itemViewModel.deleteItemById(it)
+                        }
+                    }
                 )
                 sumRow(
-                    itemCount = {
-                        coroutineScope.launch {
-                            itemViewModel.getSumCounterResult()
-                        }
-                    },
+                    itemCount = getSumOfCounters,
                     onDeleteAllItems = {
                         coroutineScope.launch {
                             itemViewModel.deleteAll()
                         }
                     })
 
-            }},
-
+            }
+        },
     )
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBar(){
+private fun TopBar() {
     TopAppBar(
-        title = { Text(text = stringResource(R.string.sum_counters), fontSize = 18.sp)}
+        title = { Text(text = stringResource(R.string.sum_counters), fontSize = 18.sp) }
     )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    CounterTheme {
-        CounterApp()
-    }
 }

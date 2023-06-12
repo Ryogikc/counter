@@ -15,5 +15,5 @@ interface ItemRepository {
 
     suspend fun deleteItemById(item: Item)
 
-    suspend fun getSumOfCounters(): Int
+    fun getSumOfCounters(): Flow<Int>
 }

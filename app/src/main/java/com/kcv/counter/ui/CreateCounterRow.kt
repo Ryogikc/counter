@@ -33,7 +33,7 @@ fun CreateCounterRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(start = 8.dp, top = 16.dp, end = 8.dp, bottom = 16.dp),
+            .padding(start = 8.dp, top = 8.dp, end = 8.dp, bottom = 8.dp),
         horizontalArrangement = Arrangement.SpaceAround
     ) {
         OutlinedTextField(
@@ -66,8 +66,8 @@ fun CreateCounterRow(
             shape = RoundedCornerShape(50),
             modifier = Modifier
                 .weight(1f)
-                .padding(start = 8.dp, end = 8.dp, top = 12.dp, bottom = 12.dp)
-                .width(60.dp)
+                .padding(start = 8.dp, end = 8.dp, top = 16.dp, bottom = 12.dp)
+                .width(50.dp)
         ) {
             Text(stringResource(R.string.add_item))
         }
