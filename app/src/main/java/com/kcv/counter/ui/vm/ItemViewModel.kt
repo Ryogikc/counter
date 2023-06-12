@@ -1,7 +1,9 @@
 package com.kcv.counter.ui.vm
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import com.kcv.counter.data.repository.ItemRepositoryImpl
 import com.kcv.counter.data.local.Item
 import com.kcv.counter.domain.contract.ItemRepository
 import com.kcv.counter.ui.ItemUiState
@@ -20,8 +22,8 @@ class ItemViewModel @Inject internal constructor(
 
     private val _uiState = MutableStateFlow(ItemUiState())
     val uiState: StateFlow<ItemUiState> = _uiState.asStateFlow()
-
-
+    var itemName by mutableStateOf("")
+    var itemCounter by mutableStateOf(0)
     val itemCounterList: Flow<List<Item>> = itemRepository.getItems()
 
     suspend fun newItem(
@@ -39,5 +41,17 @@ class ItemViewModel @Inject internal constructor(
         _uiState.update {
             it.copy(isLoading = true)
         }
+    }
+
+    fun updateItemName(newItemName: String) {
+        itemName = newItemName
+    }
+
+    fun updateCounterName(newItemCounter: String) {
+        itemCounter = newItemCounter.toInt()
+    }
+
+    suspend fun getSumCounterResult() {
+        itemRepository.getSumOfCounters()
     }
 }

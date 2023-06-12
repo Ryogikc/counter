@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -19,15 +18,16 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kcv.counter.R
+import com.kcv.counter.data.local.Item
 import com.kcv.counter.ui.theme.CounterTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun createCounterRow(
+fun CreateCounterRow(
     itemName: String,
     itemCount: String,
-    titleToSearchChanged: (String) -> Unit,
-    onAddItemClick: () -> Unit,
+    itemNameChanged: (String) -> Unit,
+    itemCountChanged: (String) -> Unit,
+    onAddItemClick: (Item) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     Row(
@@ -40,9 +40,9 @@ fun createCounterRow(
             value = itemName,
             singleLine = true,
             modifier = modifier
-                .padding(horizontal = 8.dp)
+                .padding(start = 8.dp, end = 8.dp, top = 12.dp, bottom = 12.dp)
                 .width(160.dp),
-            onValueChange = titleToSearchChanged,
+            onValueChange = itemNameChanged,
             label = {
                 Text(stringResource(R.string.item_name))
             },
@@ -52,9 +52,9 @@ fun createCounterRow(
             value = itemCount,
             singleLine = true,
             modifier = modifier
-                .padding(horizontal = 8.dp)
+                .padding(start = 8.dp, end = 8.dp, top = 12.dp, bottom = 12.dp)
                 .width(80.dp),
-            onValueChange = titleToSearchChanged,
+            onValueChange = itemCountChanged,
             label = {
                 Text(stringResource(R.string.item_count))
             },
@@ -76,12 +76,13 @@ fun createCounterRow(
 
 @Preview(showBackground = true)
 @Composable
-fun createCounterRowPreview() {
+fun CreateCounterRowPreview() {
     CounterTheme {
-        createCounterRow(
+        CreateCounterRow(
             itemName = "Ice cream",
             itemCount = "2",
-            titleToSearchChanged = { _ -> },
-            onAddItemClick = { -> })
+            itemNameChanged = {  },
+            itemCountChanged = { },
+            onAddItemClick = {  })
     }
 }

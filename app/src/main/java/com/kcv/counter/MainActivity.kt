@@ -3,6 +3,7 @@ package com.kcv.counter
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import com.kcv.counter.ui.theme.CounterTheme
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kcv.counter.ui.ItemCounterColumn
-import com.kcv.counter.ui.createCounterRow
+import com.kcv.counter.ui.CreateCounterRow
 import com.kcv.counter.ui.sumRow
 import com.kcv.counter.ui.vm.ItemViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -46,38 +47,52 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun CounterApp(
     itemViewModel: ItemViewModel = hiltViewModel(),
 ) {
-   // val navController = rememberNavController()
     val itemUiState by itemViewModel.uiState.collectAsState()
+    val itemCounterList by itemViewModel.itemCounterList.collectAsState(initial = emptyList())
     val coroutineScope = rememberCoroutineScope()
 
     Scaffold(
         topBar = { TopBar() },
         content = { padding ->
 
-            createCounterRow(
-                itemName = itemViewModel.itemName,
-                itemCount = itemViewModel.itemCounter.toString(),
-                itemNameChanged = {itemViewModel.updateItemName(it)},
-                itemCountChanged = {itemViewModel.updateCounterName(it.toInt())},
-                onAddItemClick = {
-                    coroutineScope.launch {
-                    itemViewModel.newItem(it.title, it.count)
-                } },
-                modifier = Modifier.padding(padding))
+            Column() {
+                CreateCounterRow(
+                    itemName = itemUiState.title,
+                    itemCount = itemUiState.counter,
+                    itemNameChanged = { itemViewModel.updateItemName(it) },
+                    itemCountChanged = { itemViewModel.updateCounterName(it) },
+                    onAddItemClick = {
+                        coroutineScope.launch {
+                            itemViewModel.newItem(it.title, it.count)
+                        }
+                    },
+                    modifier = Modifier.padding(padding)
+                )
 
-            ItemCounterColumn(
-                itemList = itemUiState.counterList,
-                onMinusClick = { /*TODO*/ },
-                onPlusClick = { /*TODO*/ },
-                onDeleteItemClick = {}
-            )
-            sumRow(itemCount = "", onDeleteAllItems = { /*TODO*/ })
-        },
+                ItemCounterColumn(
+                    itemList = itemCounterList,
+                    onMinusClick = { /*TODO*/ },
+                    onPlusClick = { /*TODO*/ },
+                    onDeleteItemClick = {}
+                )
+                sumRow(
+                    itemCount = {
+                        coroutineScope.launch {
+                            itemViewModel.getSumCounterResult()
+                        }
+                    },
+                    onDeleteAllItems = {
+                        coroutineScope.launch {
+                            itemViewModel.deleteAll()
+                        }
+                    })
+
+            }},
+
     )
 }
 
