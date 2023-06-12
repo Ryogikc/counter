@@ -52,15 +52,15 @@ class ItemViewModel @Inject internal constructor(
         itemCounter = newItemCounter.toInt()
     }
 
-    suspend fun deleteItemById(item: Item) {
-        itemRepository.deleteItemById(item)
+    suspend fun deleteItemById(itemId: String) {
+        itemRepository.deleteItemById(itemId)
     }
 
-    /*    suspend fun plusCounter(item: Item){
+    suspend fun minusCounter(itemId: String) {
+        itemRepository.minusCounter(itemId)
+    }
 
-        }
-
-        suspend fun minusCounter(item: Item){
-
-        }*/
+    suspend fun plusCounter(itemId: String) {
+        itemRepository.plusCounter(itemId)
+    }
 }

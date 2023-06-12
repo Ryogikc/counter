@@ -53,7 +53,6 @@ class MainActivity : ComponentActivity() {
 private fun CounterApp(
     itemViewModel: ItemViewModel = hiltViewModel(),
 ) {
-    //val itemUiState by itemViewModel.uiState.collectAsState()
     val itemCounterList by itemViewModel.itemCounterList.collectAsState(initial = emptyList())
     val getSumOfCounters by itemViewModel.getSumOfCounters.collectAsState(initial = 0)
     val coroutineScope = rememberCoroutineScope()
@@ -74,11 +73,19 @@ private fun CounterApp(
                 Spacer(Modifier.height(16.dp))
                 ItemCounterColumn(
                     itemList = itemCounterList,
-                    onMinusClick = { /*TODO*/ },
-                    onPlusClick = { /*TODO*/ },
+                    onMinusClick = {
+                        coroutineScope.launch {
+                            itemViewModel.minusCounter(it.id)
+                        }
+                    },
+                    onPlusClick = {
+                        coroutineScope.launch {
+                            itemViewModel.plusCounter(it.id)
+                        }
+                    },
                     onDeleteItemClick = {
                         coroutineScope.launch {
-                            itemViewModel.deleteItemById(it)
+                            itemViewModel.deleteItemById(it.id)
                         }
                     }
                 )
@@ -94,6 +101,6 @@ private fun CounterApp(
 @Composable
 private fun TopBar() {
     TopAppBar(
-        title = { Text(text = stringResource(R.string.sum_counters), fontSize = 18.sp) }
+        title = { Text(text = stringResource(R.string.app_name), fontSize = 18.sp) }
     )
 }

@@ -23,8 +23,8 @@ import com.kcv.counter.ui.theme.CounterTheme
 @Composable
 fun ItemCounter(
     item: Item,
-    onMinusClick: () -> Unit,
-    onPlusClick: () -> Unit,
+    onMinusClick: (Item) -> Unit,
+    onPlusClick: (Item) -> Unit,
     onDeleteItemClick: (Item) -> Unit,
 ) {
     Column(
@@ -46,7 +46,7 @@ fun ItemCounter(
                     .padding(horizontal = 6.dp, vertical = 6.dp)
                     .width(20.dp)
                     .height(20.dp)
-                    .clickable { onMinusClick() })
+                    .clickable { onMinusClick(item) })
             Text(
                 text = item.count.toString(),
                 textAlign = TextAlign.Center,
@@ -59,7 +59,7 @@ fun ItemCounter(
                     .padding(horizontal = 6.dp, vertical = 6.dp)
                     .width(20.dp)
                     .height(20.dp)
-                    .clickable { onPlusClick() })
+                    .clickable { onPlusClick(item) })
             Image(painter = painterResource(id = R.drawable.delete_cross),
                 contentDescription = null,
                 modifier = Modifier

@@ -16,8 +16,8 @@ import com.kcv.counter.ui.theme.CounterTheme
 @Composable
 fun ItemCounterColumn(
     itemList: List<Item>,
-    onMinusClick: () -> Unit,
-    onPlusClick: () -> Unit,
+    onMinusClick: (Item) -> Unit,
+    onPlusClick: (Item) -> Unit,
     onDeleteItemClick: (Item) -> Unit,
     modifier: Modifier = Modifier,
 ) {

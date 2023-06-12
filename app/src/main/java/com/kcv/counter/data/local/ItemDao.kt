@@ -24,4 +24,10 @@ interface ItemDao {
 
     @Query("DELETE FROM item WHERE id = :id")
     suspend fun deleteItemById(id: String)
+
+    @Query("UPDATE item SET count = count - 1 WHERE id = :id")
+    suspend fun minusCounter(id: String)
+
+    @Query ("UPDATE item SET count = count + 1 WHERE id = :id")
+    suspend fun plusCounter(id: String)
 }
