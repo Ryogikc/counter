@@ -16,4 +16,10 @@ interface ItemDao {
 
     @Query("DELETE FROM item")
     suspend fun deleteAll()
+
+    @Query("SELECT SUM(count) FROM item")
+    suspend fun getSumOfCounters(): Int
+
+    @Query("DELETE FROM item WHERE id = :id")
+    suspend fun deleteItemById(id: String)
 }

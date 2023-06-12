@@ -12,4 +12,8 @@ interface ItemRepository {
     )
 
     suspend fun deleteAll()
+
+    suspend fun deleteItemById(item: Item)
+
+    suspend fun getSumOfCounters(): Int
 }

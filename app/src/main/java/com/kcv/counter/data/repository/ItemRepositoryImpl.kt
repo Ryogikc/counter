@@ -22,4 +22,9 @@ class ItemRepositoryImpl @Inject constructor(
     }
 
     override suspend fun deleteAll() = itemDao.deleteAll()
+
+    override suspend fun deleteItemById(item: Item) = itemDao.deleteItemById(item.id)
+
+    override suspend fun getSumOfCounters(): Int =
+        itemDao.getSumOfCounters()
 }
