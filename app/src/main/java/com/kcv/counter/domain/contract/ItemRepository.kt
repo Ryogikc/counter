@@ -13,7 +13,11 @@ interface ItemRepository {
 
     suspend fun deleteAll()
 
-    suspend fun deleteItemById(item: Item)
+    suspend fun deleteItemById(itemId: String)
 
     fun getSumOfCounters(): Flow<Int>
+
+    suspend fun minusCounter(itemId: String)
+
+    suspend fun plusCounter(itemId: String)
 }
