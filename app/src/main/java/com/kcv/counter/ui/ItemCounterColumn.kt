@@ -1,8 +1,7 @@
 package com.kcv.counter.ui
 
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
@@ -21,8 +20,7 @@ fun ItemCounterColumn(
     modifier: Modifier = Modifier,
 ) {
     Column(
-        modifier = modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        modifier = modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         LazyColumn {
