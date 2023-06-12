@@ -4,7 +4,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -18,6 +20,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kcv.counter.ui.CreateCounterRow
@@ -68,7 +71,7 @@ private fun CounterApp(
                     itemNameChanged = { itemViewModel.updateItemName(it) },
                     itemCountChanged = { itemViewModel.updateCounterName(it) },
                     )
-
+                Spacer(Modifier.height(16.dp))
                 ItemCounterColumn(
                     itemList = itemCounterList,
                     onMinusClick = { /*TODO*/ },
@@ -79,13 +82,9 @@ private fun CounterApp(
                         }
                     }
                 )
+                Spacer(Modifier.height(16.dp))
                 sumRow(
-                    itemCount = getSumOfCounters,
-                    onDeleteAllItems = {
-                        coroutineScope.launch {
-                            itemViewModel.deleteAll()
-                        }
-                    })
+                    itemCount = getSumOfCounters)
             }
         },
     )

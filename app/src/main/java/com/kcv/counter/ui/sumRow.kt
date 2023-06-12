@@ -11,21 +11,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.kcv.counter.R
 import com.kcv.counter.ui.theme.CounterTheme
+import com.kcv.counter.ui.vm.ItemViewModel
+import kotlinx.coroutines.launch
 
 @Composable
 fun sumRow(
     itemCount: Int,
-    onDeleteAllItems: () -> Unit,
     modifier: Modifier = Modifier,
+    viewModel: ItemViewModel = hiltViewModel()
 ) {
+    val coroutineScope = rememberCoroutineScope()
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -43,17 +49,20 @@ fun sumRow(
             modifier = Modifier.padding(vertical = 8.dp, horizontal = 8.dp)
         )
         OutlinedButton(
-            onClick = { onDeleteAllItems },
+            onClick = {
+                      coroutineScope.launch {
+                          viewModel.deleteAll()
+                      }
+            },
             border = BorderStroke(1.dp, Color.Red),
             shape = RoundedCornerShape(50),
             modifier = Modifier
                 .weight(1f)
                 .padding(start = 8.dp, end = 8.dp)
-                .width(40.dp)
+                .width(50.dp)
         ) {
             Text(stringResource(R.string.delete_all_items))
         }
-
     }
 }
 
@@ -63,7 +72,6 @@ fun sumRowPreview() {
     CounterTheme {
         sumRow(
            itemCount = 80,
-            onDeleteAllItems = { }
         )
     }
 }
