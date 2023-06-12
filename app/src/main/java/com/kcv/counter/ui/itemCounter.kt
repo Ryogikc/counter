@@ -44,28 +44,28 @@ fun ItemCounter(
                 contentDescription = null,
                 modifier = Modifier
                     .padding(horizontal = 6.dp, vertical = 6.dp)
-                    .width(20.dp)
-                    .height(20.dp)
+                    .width(30.dp)
+                    .height(30.dp)
                     .clickable { onMinusClick(item) })
             Text(
                 text = item.count.toString(),
                 textAlign = TextAlign.Center,
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.padding(vertical = 6.dp, horizontal = 6.dp)
             )
             Image(painter = painterResource(id = R.drawable.ic_plus),
                 contentDescription = null,
                 modifier = Modifier
                     .padding(horizontal = 6.dp, vertical = 6.dp)
-                    .width(20.dp)
-                    .height(20.dp)
+                    .width(30.dp)
+                    .height(30.dp)
                     .clickable { onPlusClick(item) })
             Image(painter = painterResource(id = R.drawable.delete_cross),
                 contentDescription = null,
                 modifier = Modifier
-                    .padding(horizontal = 6.dp, vertical = 6.dp)
-                    .width(20.dp)
-                    .height(20.dp)
+                    .padding(horizontal = 10.dp, vertical = 6.dp)
+                    .width(30.dp)
+                    .height(30.dp)
                     .clickable { onDeleteItemClick(item) })
         }
     }

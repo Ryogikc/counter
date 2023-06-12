@@ -49,7 +49,7 @@ class ItemViewModel @Inject internal constructor(
     }
 
     fun updateCounterName(newItemCounter: String) {
-        itemCounter = newItemCounter.toInt()
+        itemCounter = newItemCounter.toIntOrNull() ?: 0
     }
 
     suspend fun deleteItemById(itemId: String) {
