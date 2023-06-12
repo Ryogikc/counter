@@ -3,6 +3,7 @@ package com.kcv.counter.data.local
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Upsert
 import kotlinx.coroutines.flow.Flow
 import retrofit2.http.DELETE
 
@@ -12,7 +13,7 @@ interface ItemDao {
     @Query("SELECT * FROM item")
     fun observeAll(): Flow<List<Item>>
 
-    @Insert
+    @Upsert
     suspend fun insertItem(item: Item)
 
     @Query("DELETE FROM item")
