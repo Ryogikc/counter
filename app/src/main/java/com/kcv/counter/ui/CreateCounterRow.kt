@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
@@ -16,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kcv.counter.R
@@ -56,8 +54,7 @@ fun CreateCounterRow(
             modifier = modifier
                 .padding(start = 8.dp, end = 8.dp, top = 12.dp, bottom = 12.dp)
                 .width(80.dp),
-            onValueChange = {itemCountChanged
-            },
+            onValueChange = itemCountChanged,
             label = {
                 Text(stringResource(R.string.item_count))
             },
@@ -84,8 +81,8 @@ fun CreateCounterRowPreview() {
         CreateCounterRow(
             itemName = "Ice cream",
             itemCount = "2",
-            itemNameChanged = {  },
+            itemNameChanged = { },
             itemCountChanged = { },
-            onAddItemClick = {  })
+            onAddItemClick = { })
     }
 }

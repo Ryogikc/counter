@@ -18,7 +18,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.kcv.counter.ui.CreateCounterRow
@@ -73,7 +72,6 @@ private fun CounterApp(
                             itemViewModel.newItem(it.title, it.count)
                         }
                     },
-
                 )
 
                 ItemCounterColumn(
@@ -93,7 +91,6 @@ private fun CounterApp(
                             itemViewModel.deleteAll()
                         }
                     })
-
             }
         },
     )

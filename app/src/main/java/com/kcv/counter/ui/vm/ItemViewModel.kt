@@ -23,7 +23,7 @@ class ItemViewModel @Inject internal constructor(
     private val _uiState = MutableStateFlow(ItemUiState())
     val uiState: StateFlow<ItemUiState> = _uiState.asStateFlow()
     var itemName by mutableStateOf("")
-    var itemCounter by mutableStateOf("")
+    var itemCounter by mutableStateOf(0)
     val itemCounterList: Flow<List<Item>> = itemRepository.getItems()
     val getSumOfCounters: Flow<Int> = itemRepository.getSumOfCounters()
 
@@ -49,18 +49,18 @@ class ItemViewModel @Inject internal constructor(
     }
 
     fun updateCounterName(newItemCounter: String) {
-        itemCounter = newItemCounter
+        itemCounter = newItemCounter.toInt()
     }
 
     suspend fun deleteItemById(item: Item) {
         itemRepository.deleteItemById(item)
     }
 
-/*    suspend fun plusCounter(item: Item){
+    /*    suspend fun plusCounter(item: Item){
 
-    }
+        }
 
-    suspend fun minusCounter(item: Item){
+        suspend fun minusCounter(item: Item){
 
-    }*/
+        }*/
 }
