@@ -29,7 +29,7 @@ class ItemViewModel @Inject internal constructor(
     var itemName by mutableStateOf("")
     var itemCounter by mutableStateOf(0)
     val itemCounterList: Flow<List<ItemDom>> = getItemsUseCase()
-    val getSumOfCounters: Flow<Int> = itemRepository.getSumOfCounters()
+    val getSumOfCounters: Flow<Int> = getSumOfCountersUseCase()
 
     suspend fun newItem(
         title: String,
