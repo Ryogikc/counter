@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Counter</string>
+    <string name="item_name">Name</string>
+    <string name="item_count">Count</string>
+    <string name="add_item">Add</string>
+    <string name="sum_counters">Counters Sum</string>
+    <string name="delete_all_items">Delete all</string>
 </resources>
