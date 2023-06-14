@@ -18,14 +18,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.kcv.counter.R
 import com.kcv.counter.data.local.Item
+import com.kcv.counter.domain.model.ItemDom
 import com.kcv.counter.ui.theme.CounterTheme
 
 @Composable
 fun ItemCounter(
-    item: Item,
-    onMinusClick: (Item) -> Unit,
-    onPlusClick: (Item) -> Unit,
-    onDeleteItemClick: (Item) -> Unit,
+    item: ItemDom,
+    onMinusClick: (ItemDom) -> Unit,
+    onPlusClick: (ItemDom) -> Unit,
+    onDeleteItemClick: (ItemDom) -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -76,7 +77,7 @@ fun ItemCounter(
 fun ItemCounterPreview() {
     CounterTheme {
         ItemCounter(
-            item = Item(id = "jdfhsdue", title = "apple", count = 45),
+            item = ItemDom(id = "plk032", title = "apple", count = 45),
             onMinusClick = {},
             onPlusClick = {},
             onDeleteItemClick = {},

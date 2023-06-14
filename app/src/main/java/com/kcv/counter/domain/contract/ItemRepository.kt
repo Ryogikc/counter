@@ -1,10 +1,10 @@
 package com.kcv.counter.domain.contract
 
-import com.kcv.counter.data.local.Item
+import com.kcv.counter.domain.model.ItemDom
 import kotlinx.coroutines.flow.Flow
 
 interface ItemRepository {
-    fun getItems(): Flow<List<Item>>
+    fun getItems(): Flow<List<ItemDom>>
 
     suspend fun createItem(
         title: String,
