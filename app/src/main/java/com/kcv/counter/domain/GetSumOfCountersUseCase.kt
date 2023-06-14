@@ -1,4 +1,4 @@
 package com.kcv.counter.domain
 
-class GetCountersUseCase {
+class GetSumOfCountersUseCase {
 }
