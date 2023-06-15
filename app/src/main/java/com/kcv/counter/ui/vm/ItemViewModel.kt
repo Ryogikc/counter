@@ -4,11 +4,13 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.kcv.counter.domain.DeleteAllUseCase
 import com.kcv.counter.domain.DeleteItemByIdUseCase
-import com.kcv.counter.domain.GetSumOfCountersUseCase
 import com.kcv.counter.domain.GetItemsUseCase
+import com.kcv.counter.domain.GetSumOfCountersUseCase
 import com.kcv.counter.domain.InsertItemUseCase
-import com.kcv.counter.domain.contract.ItemRepository
+import com.kcv.counter.domain.MinusCounterUseCase
+import com.kcv.counter.domain.PlusCounterUseCase
 import com.kcv.counter.domain.model.ItemDom
 import com.kcv.counter.ui.ItemUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -27,6 +29,7 @@ class ItemViewModel @Inject internal constructor(
     private val deleteItemByIdUseCase: DeleteItemByIdUseCase,
     private val minusCounterUseCase: MinusCounterUseCase,
     private val plusCounterUseCase: PlusCounterUseCase,
+    private val deleteAllUseCase: DeleteAllUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ItemUiState())
@@ -44,8 +47,7 @@ class ItemViewModel @Inject internal constructor(
     }
 
     suspend fun deleteAll() {
-
-        itemRepository.deleteAll()
+        deleteAllUseCase()
     }
 
     private fun loadItems() {
@@ -68,11 +70,9 @@ class ItemViewModel @Inject internal constructor(
 
     suspend fun minusCounter(itemId: String) {
         minusCounterUseCase(itemId)
-        itemRepository.minusCounter(itemId)
     }
 
     suspend fun plusCounter(itemId: String) {
         plusCounterUseCase(itemId)
-        itemRepository.plusCounter(itemId)
     }
 }
