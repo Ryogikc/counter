@@ -4,6 +4,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.kcv.counter.domain.DeleteItemByIdUseCase
 import com.kcv.counter.domain.GetSumOfCountersUseCase
 import com.kcv.counter.domain.GetItemsUseCase
 import com.kcv.counter.domain.InsertItemUseCase
@@ -63,7 +64,6 @@ class ItemViewModel @Inject internal constructor(
 
     suspend fun deleteItemById(itemId: String) {
         deleteItemByIdUseCase(itemId)
-        itemRepository.deleteItemById(itemId)
     }
 
     suspend fun minusCounter(itemId: String) {
