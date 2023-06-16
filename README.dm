@@ -1,9 +1,5 @@
 # Android Development Challenge
 
-## Before you begin
-You will need to create a private GitLab repository using the information that we provided in this README and invite as collaborator: @JimenezR.
-
-If you have any questions, please reach rodolfo.jimenez@umvel.com.
 
 ## The challenge
 Create an Android app for counting things. You'll need to meet high expectations for quality and functionality. It must meet at least the following:
@@ -33,68 +29,4 @@ Bonus points:
 * Tests are good: Unit, Instrumented, and UI.
 * Handle orientation changes.
 
-
-**Remember**: The UI is super important. Don't build anything that doesn't feel right for Android.
-
 ***Use technologies and tools that make you feel good***
-
-
-## Install, start and stop the server
-
-#### Install server
-```
-$ npm install
-```
-#### Start server
-```
-$ npm start
-```
-#### Stop server
-```
-Ctr + c
-```
-
-
-## API endpoints / examples
-
-> The following endpoints are expecting a`Content-Type: application/json`
-
-```
-GET /api/v1/counters
-# []
-
-POST {title: "shopping"} /api/v1/counter
-# [
-#   {id: "kyur6u4f", title: "shopping", count: 0}
-# ]
-
-POST {title: "water"} /api/v1/counter
-# [
-#   {id: "kyur6u4f", title: "shopping", count: 0},
-#   {id: "sfur934f", title: "water", count: 0}
-# ]
-
-POST {id: "kyur6u4f"} /api/v1/counter/inc
-# [
-#   {id: "kyur6u4f", title: "shopping", count: 1},
-#   {id: "sfur934f", title: "water", count: 0}
-# ]
-
-POST {id: "kyur6u4f"} /api/v1/counter/dec
-# [
-#   {id: "kyur6u4f", title: "shopping", count: 0},
-#   {id: "sfur934f", title: "water", count: 0}
-# ]
-
-DELETE {id: "sfur934f"} /api/v1/counter
-# [
-#   {id: "kyur6u4f", title: "shopping", count: 1}
-# ]
-
-GET /api/v1/counters
-# [
-#   {id: "kyur6u4f", title: "shopping", count: 1}
-# ]
-```
-
-> **NOTE:* Each request returns the current state of all counters.

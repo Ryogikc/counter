@@ -1,15 +1,16 @@
 package com.kcv.counter.ui.vm
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.kcv.counter.data.local.Item
-import com.kcv.counter.domain.GetCountersUseCase
+import com.kcv.counter.domain.DeleteAllUseCase
+import com.kcv.counter.domain.DeleteItemByIdUseCase
 import com.kcv.counter.domain.GetItemsUseCase
-import com.kcv.counter.domain.contract.ItemRepository
+import com.kcv.counter.domain.GetSumOfCountersUseCase
+import com.kcv.counter.domain.InsertItemUseCase
+import com.kcv.counter.domain.MinusCounterUseCase
+import com.kcv.counter.domain.PlusCounterUseCase
 import com.kcv.counter.domain.model.ItemDom
 import com.kcv.counter.ui.ItemUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -17,15 +18,18 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ItemViewModel @Inject internal constructor(
-    private val itemRepository: ItemRepository,
-    private val getItemsUseCase: GetItemsUseCase,
+    getItemsUseCase: GetItemsUseCase,
+    getSumOfCountersUseCase: GetSumOfCountersUseCase,
+    private val insertItemUseCase: InsertItemUseCase,
+    private val deleteItemByIdUseCase: DeleteItemByIdUseCase,
+    private val minusCounterUseCase: MinusCounterUseCase,
+    private val plusCounterUseCase: PlusCounterUseCase,
+    private val deleteAllUseCase: DeleteAllUseCase,
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(ItemUiState())
@@ -33,17 +37,17 @@ class ItemViewModel @Inject internal constructor(
     var itemName by mutableStateOf("")
     var itemCounter by mutableStateOf(0)
     val itemCounterList: Flow<List<ItemDom>> = getItemsUseCase()
-    val getSumOfCounters: Flow<Int> = itemRepository.getSumOfCounters()
+    val getSumOfCounters: Flow<Int> = getSumOfCountersUseCase()
 
     suspend fun newItem(
         title: String,
         count: Int,
     ) {
-        itemRepository.createItem(title, count)
+        insertItemUseCase(title, count)
     }
 
     suspend fun deleteAll() {
-        itemRepository.deleteAll()
+        deleteAllUseCase()
     }
 
     private fun loadItems() {
@@ -61,14 +65,14 @@ class ItemViewModel @Inject internal constructor(
     }
 
     suspend fun deleteItemById(itemId: String) {
-        itemRepository.deleteItemById(itemId)
+        deleteItemByIdUseCase(itemId)
     }
 
     suspend fun minusCounter(itemId: String) {
-        itemRepository.minusCounter(itemId)
+        minusCounterUseCase(itemId)
     }
 
     suspend fun plusCounter(itemId: String) {
-        itemRepository.plusCounter(itemId)
+        plusCounterUseCase(itemId)
     }
 }
