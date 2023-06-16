@@ -30,3 +30,20 @@ Bonus points:
 * Handle orientation changes.
 
 ***Use technologies and tools that make you feel good***
+# Android Counter — Challenge app By KCVarela
+
+A native app with Android Studio and Kotlin using the following:
+
+## Architecture
+Clean Architecture
+MVVM
+
+## Database
+Room
+
+## UI
+Jetpack compose (creation of Theme, fonts)
+ViewModels
+
+## Dependency Injection
+hilt
